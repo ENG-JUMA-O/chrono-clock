@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080b12">
+  <meta name="description" content="A modern responsive clock with live time, world clocks, stopwatch, and countdown timer.">
+  <meta name="color-scheme" content="dark light">
+  <title>Chrono — Modern Clock</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Chrono home">
+        <span class="brand-mark"><span></span></span>
+        <span>dev oroko<span class="brand-dot">.</span></span>
+      </a>
+      <div class="topbar-right">
+        <span class="live-status"><span></span> LIVE CLOCK</span>
+        <button class="icon-button" id="themeToggle" type="button" aria-label="Switch to light theme" title="Toggle theme">
+          <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path></svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero-grid" aria-labelledby="page-title">
+        <div class="clock-panel panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">YOUR TIME, AT A GLANCE</p>
+              <h1 id="page-title">Stay in your <span>moment.</span></h1>
+            </div>
+            <span class="timezone-pill" id="localTimezone">LOCAL</span>
+          </div>
+
+          <div class="clock-stage">
+            <div class="analog-clock" id="analogClock" role="img" aria-label="Live analog clock">
+              <div class="clock-glow"></div>
+              <div class="clock-markers" id="clockMarkers" aria-hidden="true"></div>
+              <div class="hand hand-hour" id="hourHand"></div>
+              <div class="hand hand-minute" id="minuteHand"></div>
+              <div class="hand hand-second" id="secondHand"></div>
+              <div class="clock-pin"></div>
+            </div>
+          </div>
+
+          <div class="digital-time" aria-label="Digital time">
+            <span id="digitalHour">00</span><span class="time-colon">:</span><span id="digitalMinute">00</span><span class="seconds-part"><span class="time-colon">:</span><span id="digitalSecond">00</span></span>
+            <span class="ampm" id="ampm">AM</span>
+          </div>
+          <div class="date-line" id="dateLine">Loading date…</div>
+
+          <div class="clock-controls">
+            <div class="format-control" role="group" aria-label="Time format">
+              <button type="button" class="format-button active" data-format="12" aria-pressed="true">12-hour</button>
+              <button type="button" class="format-button" data-format="24" aria-pressed="false">24-hour</button>
+            </div>
+            <button class="text-button" id="secondsToggle" type="button" aria-pressed="true">
+              <span class="toggle-dot"></span> Seconds
+            </button>
+          </div>
+        </div>
+
+        <aside class="side-column">
+          <section class="info-card panel">
+            <div class="card-title-row">
+              <div><p class="eyebrow">RIGHT NOW</p><h2>Today's overview</h2></div>
+              <span class="card-icon">✦</span>
+            </div>
+            <div class="overview-date" id="overviewDate">—</div>
+            <div class="overview-grid">
+              <div><span class="metric-label">DAY OF YEAR</span><strong id="dayOfYear">—</strong></div>
+              <div><span class="metric-label">WEEK NUMBER</span><strong id="weekNumber">—</strong></div>
+            </div>
+            <div class="progress-block">
+              <div class="progress-label"><span>Day progress</span><strong id="dayProgressText">0%</strong></div>
+              <div class="progress-track"><div id="dayProgress" class="progress-value"></div></div>
+            </div>
+          </section>
+
+          <section class="info-card panel">
+            <div class="card-title-row">
+              <div><p class="eyebrow">QUICK TOOLS</p><h2>Focus your time</h2></div>
+              <span class="card-icon">⌁</span>
+            </div>
+            <div class="quick-tool-list">
+              <button class="quick-tool" type="button" data-scroll="stopwatch">
+                <span class="tool-symbol stopwatch-symbol">◷</span><span><strong>Stopwatch</strong><small>Track elapsed time</small></span><span class="tool-arrow">↗</span>
+              </button>
+              <button class="quick-tool" type="button" data-scroll="timer">
+                <span class="tool-symbol timer-symbol">◴</span><span><strong>Countdown timer</strong><small>Make every minute count</small></span><span class="tool-arrow">↗</span>
+              </button>
+              <button class="quick-tool" type="button" data-scroll="world">
+                <span class="tool-symbol world-symbol">◎</span><span><strong>World clock</strong><small>Time around the globe</small></span><span class="tool-arrow">↗</span>
+              </button>
+            </div>
+          </section>
+        </aside>
+      </section>
+
+      <section class="tools-section" id="world">
+        <div class="section-heading">
+          <div><p class="eyebrow">BEYOND YOUR TIMEZONE</p><h2>World clock <span class="section-count">03</span></h2></div>
+          <p class="section-description">A few places, one shared moment.</p>
+        </div>
+        <div class="world-grid">
+          <article class="world-card panel">
+            <div class="world-top"><span class="city-icon">🇰🇪</span><span class="world-offset" id="nairobiOffset">EAT</span></div>
+            <h3>Nairobi</h3><p class="country">Kenya · Africa</p>
+            <div class="world-time" data-zone="Africa/Nairobi">--:--:--</div><div class="world-date" data-date-zone="Africa/Nairobi">Loading…</div>
+          </article>
+          <article class="world-card panel">
+            <div class="world-top"><span class="city-icon">🇬🇧</span><span class="world-offset" id="londonOffset">UK</span></div>
+            <h3>London</h3><p class="country">United Kingdom · Europe</p>
+            <div class="world-time" data-zone="Europe/London">--:--:--</div><div class="world-date" data-date-zone="Europe/London">Loading…</div>
+          </article>
+          <article class="world-card panel">
+            <div class="world-top"><span class="city-icon">🇺🇸</span><span class="world-offset" id="newYorkOffset">ET</span></div>
+            <h3>New York</h3><p class="country">United States · Americas</p>
+            <div class="world-time" data-zone="America/New_York">--:--:--</div><div class="world-date" data-date-zone="America/New_York">Loading…</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="tools-section" id="stopwatch">
+        <div class="section-heading">
+          <div><p class="eyebrow">MEASURE THE MOMENT</p><h2>Stopwatch</h2></div>
+          <p class="section-description">Time an activity with precision.</p>
+        </div>
+        <div class="utility-panel panel">
+          <div class="utility-copy"><span class="utility-icon stopwatch-symbol">◷</span><div><h3>Elapsed time</h3><p>Start, pause, and reset whenever you need.</p></div></div>
+          <div class="utility-display" id="stopwatchDisplay" aria-live="off">00:00.00</div>
+          <div class="utility-actions">
+            <button class="button button-secondary" id="stopwatchReset" type="button">Reset</button>
+            <button class="button button-primary" id="stopwatchStart" type="button">Start stopwatch</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="tools-section" id="timer">
+        <div class="section-heading">
+          <div><p class="eyebrow">MAKE TIME FOR IT</p><h2>Countdown timer</h2></div>
+          <p class="section-description">Set a duration and let the clock do the rest.</p>
+        </div>
+        <div class="utility-panel timer-panel panel">
+          <div class="utility-copy"><span class="utility-icon timer-symbol">◴</span><div><h3>Time remaining</h3><p id="timerStatus">Choose a duration to get started.</p></div></div>
+          <div class="timer-inputs" aria-label="Countdown duration">
+            <label><input id="timerHours" type="number" min="0" max="99" value="0" inputmode="numeric"><span>Hours</span></label><b>:</b>
+            <label><input id="timerMinutes" type="number" min="0" max="59" value="5" inputmode="numeric"><span>Minutes</span></label><b>:</b>
+            <label><input id="timerSeconds" type="number" min="0" max="59" value="0" inputmode="numeric"><span>Seconds</span></label>
+          </div>
+          <div class="timer-actions">
+            <button class="button button-secondary" id="timerReset" type="button">Reset</button>
+            <button class="button button-primary" id="timerStart" type="button">Start countdown</button>
+          </div>
+          <div class="timer-track"><div id="timerProgress"></div></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <a class="brand footer-brand" href="#top"><span class="brand-mark"><span></span></span><span>chrono<span class="brand-dot">.</span></span></a>
+      <p>Time moves. Make it meaningful.</p>
+      <span id="footerYear"></span>
+    </footer>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
