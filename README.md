@@ -1,6 +1,6 @@
 # Chrono Modern Clock
 
-A responsive HTML/CSS/JavaScript clock dashboard.
+A responsive HTML/CSS/JavaScript clock dashboard. modernised
 
 ## Run locally
 1. Keep `index.html`, `style.css`, and `script.js` in the same folder.
@@ -18,7 +18,3 @@ A responsive HTML/CSS/JavaScript clock dashboard.
 - Countdown timer with pause/resume/reset and completion toast
 - Dark/light theme toggle with saved preference when browser storage is available
 - Responsive layout and keyboard focus states
-
-
-asdfghjkl;'
-qwertyuisdfghjxcvbn
